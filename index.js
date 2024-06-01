@@ -20,6 +20,11 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.set("views", "./views/cvtemplate");
 app.set("view engine", "ejs");
+let corsOptions = {
+  origin: [
+    "https://5173-cs-1063973661166-default.cs-asia-southeast1-yelo.cloudshell.dev/?authuser=0&redirectedPreviously=true",
+  ],
+};
 
 app.get("/", (req, res) => {
   console.log("Server started");

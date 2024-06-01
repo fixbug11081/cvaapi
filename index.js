@@ -16,37 +16,19 @@ var PORT = 5010;
 var app = express();
 
 app.use(express.json());
-app.use(bodyParser.json());
+
 app.use(express.static("public"));
 app.set("views", "./views/cvtemplate");
 app.set("view engine", "ejs");
-var corsOptions = {
-  origin: "http://localhost:8080",
-  optionsSuccessStatus: 200, // For legacy browser support
-};
 
-let corsOptions = {
-  origin:
-    "https://5173-cs-1063973661166-default.cs-asia-southeast1-yelo.cloudshell.dev/",
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.get("/", (req, res) => {
   console.log("Server started");
   res.send("Hello world");
 });
 
 app.post("/save", async (req, res) => {
-  req.header("Access-control-allow-origin", "*");
-  req.header(
-    "Access-Control-Allow-Methods",
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS"
-  );
+  res.set("Access-Control-Allow-Origin", "*");
 
   try {
     connectdb();
@@ -135,16 +117,7 @@ app.post("/save", async (req, res) => {
 });
 
 app.get("/getcv", async (req, res) => {
-  req.header("Access-control-allow-origin", "*");
-  req.header(
-    "Access-Control-Allow-Methods",
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS"
-  );
+  res.set("Access-Control-Allow-Origin", "*");
   try {
     const email = req.query.email;
     let cvdata = await CVModel.find({ emailid: email });
@@ -155,20 +128,10 @@ app.get("/getcv", async (req, res) => {
 });
 
 app.post("/upload", (req, res) => {
-  req.header("Access-control-allow-origin", "*");
-  req.header(
-    "Access-Control-Allow-Methods",
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS"
-  );
+  res.set("Access-Control-Allow-Origin", "*");
   console.log(req.body);
 });
-//if (process.env.DEVELOPMENT) {
-app.listen(PORT, (req, res) => {
+
+app.listen(process.env.PORT || 5010, (req, res) => {
   console.log("server run at port " + PORT);
 });
-//}

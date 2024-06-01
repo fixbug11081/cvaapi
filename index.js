@@ -37,6 +37,17 @@ app.get("/", (req, res) => {
 });
 
 app.post("/save", async (req, res) => {
+  req.header("Access-control-allow-origin", "*");
+  req.header(
+    "Access-Control-Allow-Methods",
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+  );
+
   try {
     connectdb();
     console.log(req.body);
@@ -124,6 +135,16 @@ app.post("/save", async (req, res) => {
 });
 
 app.get("/getcv", async (req, res) => {
+  req.header("Access-control-allow-origin", "*");
+  req.header(
+    "Access-Control-Allow-Methods",
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+  );
   try {
     const email = req.query.email;
     let cvdata = await CVModel.find({ emailid: email });
@@ -134,6 +155,16 @@ app.get("/getcv", async (req, res) => {
 });
 
 app.post("/upload", (req, res) => {
+  req.header("Access-control-allow-origin", "*");
+  req.header(
+    "Access-Control-Allow-Methods",
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+  );
   console.log(req.body);
 });
 //if (process.env.DEVELOPMENT) {

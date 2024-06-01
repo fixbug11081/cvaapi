@@ -14,18 +14,23 @@ import open from "open";
 
 var PORT = 5010;
 var app = express();
-app.use(cors());
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.set("views", "./views/cvtemplate");
 app.set("view engine", "ejs");
-let corsOptions = {
-  origin: [
-    "https://5173-cs-1063973661166-default.cs-asia-southeast1-yelo.cloudshell.dev/?authuser=0&redirectedPreviously=true",
-  ],
+var corsOptions = {
+  origin: "http://localhost:8080",
+  optionsSuccessStatus: 200, // For legacy browser support
 };
 
+let corsOptions = {
+  origin:
+    "https://5173-cs-1063973661166-default.cs-asia-southeast1-yelo.cloudshell.dev/",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   console.log("Server started");
   res.send("Hello world");
